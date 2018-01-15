@@ -167,7 +167,7 @@
         $.post('http://timeline.hellobirds.top', this.formCustom, function (resp) {
           if (resp.code == 0) {
             that.$Message.success('Success!');
-            this.reset();
+            that.reset();
           } else {
             that.$Message.error('保存失败了');
           }
@@ -218,7 +218,7 @@
         var that = this;
         this.$refs[name].validate(function (valid) {
           if (valid) {
-            this.setTimeLineInfo();
+            that.setTimeLineInfo();
           } else {
             that.$Message.error('内容和标题是需要的~');
           }
