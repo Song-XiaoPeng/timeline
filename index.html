@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>iview example</title>
+  <title>sone的时光轴</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
@@ -10,17 +10,30 @@
   <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
   <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
   <style type="text/css">
+    .row-center {
+      padding: 5px;
+    }
   </style>
 </head>
 <body>
 <div id="app">
   <Header>
-    sone的时光轴
-  </Header>
 
+    <!--<div class="demo-avatar">
+      <Avatar :style="{background: '#7265e6'}" shape="square" size="large">{{ user }}</Avatar>
+    </div>-->
+
+  </Header>
   <i-row>
+    <i-col style="margin:0 auto;text-align:center;">
+      <div style="font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','微软雅黑',Arial,sans-serif;"><h3>sone的时光轴</h3></div>
+    </i-col>
+  </i-row>
+
+
+  <i-row class="row-center">
     <!--<i-col :xs="12" :sm="12" :md="12" :lg="3">-->
-    <i-col>
+    <i-col style="width:95%;margin:0 auto">
       <i-form ref="formCustom" :model="formCustom" :rules="ruleCustom" label-position="top">
         <form-item label="标题" prop="title"
                    :rules="{required: true, message: 'title can not be empty', trigger: 'blur'}">
@@ -100,6 +113,8 @@
     el: '#app',
     data: function () {
       return {
+        user: 'Sone',
+        color:'#f56a00',
         time: '',
         styleObj: {
           display: 'none'
@@ -148,11 +163,12 @@
     },
     methods: {
       setTimeLineInfo: function () {
+        var that = this;
         $.post('http://timeline.hellobirds.top', this.formCustom, function (resp) {
           if (resp.code == 0) {
-            this.$Message.success('Success!');
+            that.$Message.success('Success!');
           } else {
-            this.$Message.error('Fail!');
+            that.$Message.error('保存失败了');
           }
         });
       },
@@ -198,13 +214,12 @@
         return pushName;
       },
       handleSubmit: function (name) {
-        console.log(this.formCustom)
-        this.setTimeLineInfo();
+        var that = this;
         this.$refs[name].validate(function (valid) {
           if (valid) {
             this.setTimeLineInfo();
           } else {
-            this.$Message.error('Fail!');
+            that.$Message.error('请填写标题和内容~');
           }
         })
       },
