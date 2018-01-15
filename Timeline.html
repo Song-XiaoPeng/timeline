@@ -7,41 +7,27 @@
   <style>
     .page { width:100%;background:#F0F0F0 url('img/dian2.png') repeat-x; padding-top:100px; }
   </style>
-  <title>jQuery时间轴 - 程序喵</title>
+  <title>sone的时间轴  -  程序喵</title>
   <link rel="shortcut icon"  type="image/x-icon" href="http://www.ibloger.net/favicon.ico">
+  <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
 </head>
 <body>
-<div class="page">
+<div class="page" id="app">
 
   <div class="box">
     <ul class="event_year">
-      <li class="current"><label for="2013">2013</label></li>
-      <li><label for="2012">2012</label></li>
+      <li v-for="(year,index) in yearList" v-if="index == 0" class="current">
+        <label for="year">{{ year }}</label>
+      </li>
+      <li v-else><label for="year">{{ year }}</label></li>
     </ul>
     <ul class="event_list">
-      <div>
-        <h3 id="2013">2013</h3>
-        <li>
-          <span>5月</span>
-          <p><span>发布国内首个HTML5实验室</span></p>
+      <div v-for="(data,index) in dataList">
+        <h3 id="index">{{ index }}</h3>
+        <li v-for="(dd,idx) in data">
+          <span>{{ dd.month }}月</span>
+          <p><span>{{ dd.content }}</span></p>
         </li>
-        <li>
-          <span>4月</span>
-          <p><span>发布国内首个HTML5实验室发布国内首个HTML5实验室</span></p>
-        </li>
-
-      </div>
-      <div>
-        <h3 id="2012">2012</h3>
-        <li>
-          <span>5月</span>
-          <p><span>发布国内首个HTML5实验室</span></p>
-        </li>
-        <li>
-          <span>4月</span>
-          <p><span>发布国内首个HTML5实验室发布国内首个HTML5实验室</span></p>
-        </li>
-
       </div>
     </ul>
 
@@ -49,8 +35,34 @@
 
   </div>
 
+
 </div>
 <script src="js/jquery.min_v1.0.js" type="text/javascript"></script>
+<!--<script src="js/dist.js" type="text/javascript"></script>-->
+<script>
+  var globalVar = {
+    dataUrl:'http://timeline.hellobirds.top/timeline/getTimeLineData',
+  };
+var vue = new Vue({
+    el:'#app',
+    data:{
+      yearList:[],
+      dataList:[]
+    },
+    method:{
+      getData:function(){
+
+      }
+    },
+    created (){
+      $.get(globalVar.dataUrl,function(resp){
+        vue.yearList = resp.data.year;
+        vue.dataList = resp.data.data;
+      })
+    }
+  });
+
+</script>
 <script>
   $(function(){
     $('label').click(function(){
@@ -63,7 +75,7 @@
   });
 </script>
 <div style="text-align:center;clear:both">
-  <p>适用浏览器：IE8、360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗.</p>
+  <p></p>
   <p><a href="http://www.ibloger.net" target="_blank">程序喵 - ibloger.net</a></p>
 </div>
 </body>

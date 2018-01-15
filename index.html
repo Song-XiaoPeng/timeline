@@ -26,7 +26,8 @@
   </Header>
   <i-row>
     <i-col style="margin:0 auto;text-align:center;">
-      <div style="font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','微软雅黑',Arial,sans-serif;"><h3>sone的时光轴</h3></div>
+      <!--<div style="font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','微软雅黑',Arial,sans-serif;"></div>-->
+      <i-button type="text" @click="window.location.href='http://sone.timeline.hellobirds.top/Timeline.html'"><h3>@sone的时光轴</h3></i-button>
     </i-col>
   </i-row>
 
@@ -98,6 +99,7 @@
         <form-item>
           <i-button type="primary" @click="handleSubmit('formCustom')">Submit</i-button>
           <i-button type="ghost" @click="reset" style="margin-left: 8px">Reset</i-button>
+
         </form-item>
 
       </i-form>
@@ -106,6 +108,7 @@
     <i-col span="12">
     </i-col>
   </i-row>
+
 </div>
 <script src="js/jquery.min_v1.0.js" type="text/javascript"></script>
 <script>
