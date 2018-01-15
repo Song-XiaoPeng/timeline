@@ -164,14 +164,7 @@
     methods: {
       setTimeLineInfo: function () {
         var that = this;
-        $.post('http://timeline.hellobirds.top', this.formCustom, function (resp) {
-          if (resp.code == 0) {
-            that.$Message.success('Success!');
-            that.reset();
-          } else {
-            that.$Message.error('保存失败了');
-          }
-        });
+
       },
       handleAdd: function () {
         //已有的
@@ -218,7 +211,14 @@
         var that = this;
         this.$refs[name].validate(function (valid) {
           if (valid) {
-            that.setTimeLineInfo();
+            $.post('http://timeline.hellobirds.top', that.formCustom, function (resp) {
+              if (resp.code == 0) {
+                that.$Message.success('Success!');
+                that.reset();
+              } else {
+                that.$Message.error('保存失败了');
+              }
+            });
           } else {
             that.$Message.error('内容和标题是需要的~');
           }
