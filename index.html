@@ -211,7 +211,7 @@
         var that = this;
         this.$refs[name].validate(function (valid) {
           if (valid) {
-            $.post('http://timeline.hellobirds.top', that.formCustom, function (resp) {
+            $.post('http://timeline.hellobirds.top/timeline/addArticle', that.formCustom, function (resp) {
               if (resp.code == 0) {
                 that.$Message.success('Success!');
                 that.reset();
